@@ -57,6 +57,10 @@ public class CartService {
 	
 	public CartItem updateCartItem(long id, CartItem cartitem) {
 		CartItem item = cartItemRepo.findById(id).orElseThrow(() -> new RuntimeException("Cart Item not found"));
+		if (cartitem.getQuantity() > item.getProduct().getStock()) {
+		    throw new RuntimeException("Not enough stock");
+		}
+		
 		Cart cart = cartRepo.findById(item.getCart().getId()).orElseThrow(() -> new RuntimeException("Cart not found"));
 
 		BigDecimal oldTotal = item.getPrice().multiply(BigDecimal.valueOf(item.getQuantity()));

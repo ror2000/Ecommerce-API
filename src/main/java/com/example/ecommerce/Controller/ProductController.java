@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.ecommerce.Entity.Product;
 import com.example.ecommerce.Service.ProductService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/products")
 public class ProductController {
@@ -36,12 +38,12 @@ public class ProductController {
 	}
 	
 	@PostMapping
-	public Product addProduct(@RequestBody Product product){
+	public Product addProduct(@Valid @RequestBody Product product){
 	    return productService.addProduct(product);
 	}
 	
 	@PutMapping("/{id}")
-	public Product updateProduct(@PathVariable long id, @RequestBody Product product){
+	public Product updateProduct(@PathVariable long id, @Valid @RequestBody Product product){
 	    return productService.updateProduct(id, product);
 	}
 	

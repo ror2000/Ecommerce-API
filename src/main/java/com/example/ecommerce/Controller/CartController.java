@@ -13,6 +13,8 @@ import com.example.ecommerce.Entity.Cart;
 import com.example.ecommerce.Entity.CartItem;
 import com.example.ecommerce.Service.CartService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/cart")
 public class CartController {
@@ -35,7 +37,7 @@ public class CartController {
 	}
 
 	@PutMapping("/items/{itemId}")
-	public CartItem updateCartItem(@PathVariable long itemId, @RequestBody CartItem cartitem) {
+	public CartItem updateCartItem(@PathVariable long itemId, @Valid @RequestBody CartItem cartitem) {
 		return cartService.updateCartItem(itemId, cartitem);
 	}
 

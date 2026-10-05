@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ecommerce.Entity.Category;
 import com.example.ecommerce.Service.CategoryService;
+
+import jakarta.validation.Valid;
+
 import java.util.List;
 
 @RestController
@@ -35,12 +38,12 @@ public class CategoryController {
 	}
 
 	@PostMapping
-	public Category addCategory(@RequestBody Category category){
+	public Category addCategory(@Valid @RequestBody Category category){
 		return categoryService.addCategory(category);
 	}
 
 	@PutMapping("/{id}")
-	public Category updateCategory(@PathVariable long id, @RequestBody Category category){
+	public Category updateCategory(@PathVariable long id, @Valid @RequestBody Category category){
 		return categoryService.updateCategory(id, category);
 	}
 

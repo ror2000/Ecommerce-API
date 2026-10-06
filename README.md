@@ -163,7 +163,12 @@ The API was tested using **Postman**, including:
 
 ## 🌐 Deployment
 
-The backend is deployed on **Render** and uses environment variables for sensitive configuration.
+The backend is deployed on **Render**.
+
+**Live API:**  
+https://ecommerce-api-kvxq.onrender.com
+
+The application uses environment variables for sensitive configuration such as database credentials and JWT secrets.
 
 ---
 

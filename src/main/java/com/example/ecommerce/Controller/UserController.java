@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.ecommerce.Entity.Users;
 import com.example.ecommerce.Service.UserService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -36,12 +38,12 @@ public class UserController {
 	}
 
 	@PostMapping
-	public Users addUser(@RequestBody Users user){
+	public Users addUser(@Valid @RequestBody Users user){
 		return userService.addUser(user);
 	}
 
 	@PutMapping("/{id}")
-	public Users updateUser(@PathVariable long id, @RequestBody Users user){
+	public Users updateUser(@PathVariable long id,@Valid @RequestBody Users user){
 		return userService.updateUser(id, user);
 	}
 

@@ -21,6 +21,7 @@ public class Users {
 	private String name ;
 	@NotBlank(message = "Email cannot be blank")
 	private String email;
+	@NotBlank(message = "Password cannot be blank")
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private String password; 
 	private String role ;

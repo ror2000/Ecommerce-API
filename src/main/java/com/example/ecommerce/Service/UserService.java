@@ -29,6 +29,7 @@ public class UserService {
 	
 	public Users addUser(Users user) {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		user.setRole("USER");
 		return repo.save(user);
 	}
 	
@@ -40,7 +41,6 @@ public class UserService {
 		if(user.getPassword() != null) {
 			use.setPassword(passwordEncoder.encode(user.getPassword()));
 		}
-		use.setRole(user.getRole());
 		return repo.save(use);
 	}
 	

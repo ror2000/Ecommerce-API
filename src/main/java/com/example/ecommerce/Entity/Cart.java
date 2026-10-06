@@ -18,7 +18,7 @@ public class Cart {
 	@OneToOne
 	@JoinColumn(name = "user_id")
 	private Users user;
-	private BigDecimal total;
+	private BigDecimal total = BigDecimal.ZERO;
 	
 	public Cart() {
 		super();

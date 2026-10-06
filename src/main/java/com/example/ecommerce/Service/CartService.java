@@ -46,7 +46,10 @@ public class CartService {
 	            cartitem.setQuantity(1);
 	            cartitem.setPrice(prod.getPrice());
 			} else {
-				cartitem.setQuantity(cartitem.getQuantity() + 1);
+				if (cartitem.getQuantity() >= prod.getStock()) {
+			        throw new RuntimeException("Not enough stock");
+			    }
+			    cartitem.setQuantity(cartitem.getQuantity() + 1);
 			}
 			cartItemRepo.save(cartitem);
 			cart.setTotal(cart.getTotal().add(prod.getPrice()));

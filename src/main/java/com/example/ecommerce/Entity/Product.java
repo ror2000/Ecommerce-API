@@ -8,7 +8,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Product {
@@ -19,7 +22,10 @@ public class Product {
 	@NotBlank(message = "Name cannot be blank")
 	private String name;
 	private String description;
+	@NotNull(message = "Price is required")
+	@DecimalMin(value = "0.0", message = "Price cannot be negative")
 	private BigDecimal price;
+	@Min(value = 0, message = "Stock cannot be negative")
 	private int stock;
 	private String image_url;
 	@ManyToOne

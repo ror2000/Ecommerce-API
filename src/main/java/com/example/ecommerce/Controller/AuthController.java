@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.ecommerce.DTO.LoginResponse;
 import com.example.ecommerce.Entity.Users;
 import com.example.ecommerce.Repository.UsersRepository;
 import com.example.ecommerce.Security.JwtService;
@@ -27,7 +28,7 @@ public class AuthController {
 	}
 	
 	@PostMapping("/login")
-	public ResponseEntity<String> login(@RequestBody Users user){
+	public ResponseEntity<LoginResponse> login(@RequestBody Users user){
 		Users existingUser = userRepo.findByEmail(user.getEmail());
 		if(existingUser == null) {
 			throw new RuntimeException("User not found");
@@ -38,7 +39,8 @@ public class AuthController {
 		}
 		
 		String token = jwtService.generateToken(existingUser.getEmail());
+		LoginResponse response = new LoginResponse(token, existingUser.getId());
 		
-		return ResponseEntity.ok(token);
+		return ResponseEntity.ok(response);
 	}
 }

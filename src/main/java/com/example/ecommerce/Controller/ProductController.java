@@ -1,6 +1,7 @@
 package com.example.ecommerce.Controller;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.http.MediaType;
@@ -44,9 +45,17 @@ public class ProductController {
 	    return productService.getById(id);
 	}
 	
-	@PostMapping
-	public Product addProduct(@Valid @RequestBody Product product){
-	    return productService.addProduct(product);
+	@PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	public Product addProduct(@Valid @RequestParam("name") String name, @RequestParam("description") String description, 
+			@RequestParam("price") BigDecimal price, @RequestParam("stock") int stock, @RequestParam("category") String category, 
+			@RequestParam("file") MultipartFile file) throws IOException {
+		Product product = new Product();
+		product.setImage_url(cloudinaryService.uploadImage(file));
+		product.setDescription(description);
+		product.setName(name);
+		product.setPrice(price);
+		product.setStock(stock);
+	    return productService.addProductByCategoryName(product, category);
 	}
 	
 	@PutMapping("/{id}")

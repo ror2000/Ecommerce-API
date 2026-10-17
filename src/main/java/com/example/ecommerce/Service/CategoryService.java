@@ -19,6 +19,10 @@ public class CategoryService {
 		return repo.findAll();
 	}
 	
+	public Category getByName(String name) {
+		return repo.findByNameIgnoreCase(name).orElseThrow(() -> new RuntimeException("Category not found"));
+	}
+	
 	public Category getById(long id) {
 		return repo.findById(id).orElseThrow(() -> new RuntimeException("Category not found"));
 	}

@@ -2,7 +2,9 @@ package com.example.ecommerce.Service;
 
 import org.springframework.stereotype.Service;
 
+import com.example.ecommerce.Entity.Category;
 import com.example.ecommerce.Entity.Product;
+import com.example.ecommerce.Repository.CategoryRepository;
 import com.example.ecommerce.Repository.ProductRepository;
 import java.util.List;
 
@@ -10,9 +12,11 @@ import java.util.List;
 public class ProductService {
 
 	private ProductRepository repo;
+	private final CategoryRepository categoryRepository;
 
-	public ProductService(ProductRepository repo) {
+	public ProductService(ProductRepository repo, CategoryRepository categoryRepository) {
 		this.repo = repo;
+		this.categoryRepository = categoryRepository;
 	}
 	
 	public List<Product> getAllProducts(){
@@ -25,6 +29,14 @@ public class ProductService {
 	
 	public Product addProduct(Product product) {
 		return repo.save(product);
+	}
+
+	public Product addProductByCategoryName(Product product, String categoryName) {
+	    Category category = categoryRepository.findByNameIgnoreCase(categoryName)
+	            .orElseThrow(() -> new RuntimeException("Category not found: " + categoryName));
+	
+	    product.setCategory(category);
+	    return repo.save(product);
 	}
 	
 	public Product updateProduct(long id, Product product) {

@@ -1,22 +1,28 @@
 package com.example.ecommerce.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
+import com.example.ecommerce.Entity.Cart;
 import com.example.ecommerce.Entity.Users;
+import com.example.ecommerce.Repository.CartRepository;
 import com.example.ecommerce.Repository.UsersRepository;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserService {
 
 	private UsersRepository repo;
 	private PasswordEncoder passwordEncoder;
+	private CartRepository cartRepo;
 
-	public UserService(UsersRepository repo, PasswordEncoder passwordEncoder) {
+	public UserService(UsersRepository repo, PasswordEncoder passwordEncoder, CartRepository cartRepo) {
 		this.repo = repo;
 		this.passwordEncoder = passwordEncoder;
+		this.cartRepo = cartRepo;
 	}
 	
 	public List<Users> getAllUsers(){
@@ -27,10 +33,14 @@ public class UserService {
 		return repo.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
 	}
 	
+	@Transactional
 	public Users addUser(Users user) {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		user.setRole("USER");
-		return repo.save(user);
+		Users newUser  = repo.save(user);
+		Cart cart = new Cart(newUser, BigDecimal.ZERO);
+		cartRepo.save(cart);
+		return newUser;
 	}
 	
 	public Users updateUser(long id, Users user) {

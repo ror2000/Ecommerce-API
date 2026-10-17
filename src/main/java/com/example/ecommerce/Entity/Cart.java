@@ -16,7 +16,7 @@ public class Cart {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	@OneToOne
-	@JoinColumn(name = "user_id")
+	@JoinColumn(name = "user_id", unique = true)
 	private Users user;
 	private BigDecimal total = BigDecimal.ZERO;
 	

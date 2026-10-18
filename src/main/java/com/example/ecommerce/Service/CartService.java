@@ -98,4 +98,8 @@ public class CartService {
 		cart.setTotal(BigDecimal.ZERO);
         return cartRepo.save(cart);
 	}
+	
+	public List<CartItem> getAllCartItem(long id){
+		return cartItemRepo.findByCartId(id);
+	}
 }

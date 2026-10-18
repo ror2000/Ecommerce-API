@@ -1,5 +1,7 @@
 package com.example.ecommerce.Controller;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,5 +51,10 @@ public class CartController {
 	@DeleteMapping("/{cartId}")
 	public Cart clearCart(@PathVariable long cartId) {
 		return cartService.clearCart(cartId);
+	}
+	
+	@GetMapping("/{cartId}/items")
+	public List<CartItem> getAllCartItem(@PathVariable long cartId){
+		return cartService.getAllCartItem(cartId);
 	}
 }

@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.example.ecommerce.DTO.OrderItemDTO;
 import com.example.ecommerce.Entity.Cart;
 import com.example.ecommerce.Entity.CartItem;
 import com.example.ecommerce.Entity.OrderItem;
@@ -98,5 +99,11 @@ public class OrderService {
     	Orders oldOrder = orderRepo.findById(id).orElseThrow(() -> new RuntimeException("Order not found"));
     	oldOrder.setStatus("Cancelled");
     	return orderRepo.save(oldOrder);
+    }
+    
+    public List<OrderItemDTO> getByOrderId(long orderId){
+    	return orderItemRepo.findByOrderId(orderId).stream().map(item -> new OrderItemDTO(item.getId(),
+    			item.getProduct().getId(), item.getProduct().getName(), item.getProduct().getImage_url(),
+    			item.getQuantity(), item.getPrice())).toList();
     }
 }

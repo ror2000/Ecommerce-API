@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.ecommerce.DTO.OrderItemDTO;
 import com.example.ecommerce.Entity.Orders;
 import com.example.ecommerce.Entity.Users;
 import com.example.ecommerce.Service.OrderService;
@@ -48,5 +49,10 @@ public class OrderController {
 	@PutMapping("/{id}/cancel")
 	public Orders cancelOrder(@PathVariable long id){
 		return orderService.cancelOrder(id);
+	}
+	
+	@GetMapping("/{id}/items")
+	public List<OrderItemDTO> getByOrderId(@PathVariable long id){
+		return orderService.getByOrderId(id);
 	}
 }

@@ -7,9 +7,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.ecommerce.DTO.OrderDTO;
 import com.example.ecommerce.DTO.OrderItemDTO;
 import com.example.ecommerce.Entity.Orders;
 import com.example.ecommerce.Entity.Users;
@@ -27,13 +29,13 @@ public class OrderController {
 	}
 	
 	@GetMapping("/user/{userId}")
-	public List<Orders> getUserOrders(@PathVariable long userId){
-		return orderService.getUserOrders(userId);
+	public List<OrderDTO> getUserOrders(@PathVariable long userId, @RequestHeader(value = "Accept-Language", defaultValue = "en") String language) {
+	    return orderService.getUserOrders(userId, language);
 	}
 
 	@GetMapping("/{id}")
-	public Orders getOrderById(@PathVariable long id){
-		return orderService.getOrderById(id);
+	public OrderDTO getOrderById(@PathVariable long id, @RequestHeader(value = "Accept-Language", defaultValue = "en") String language) {
+	    return orderService.getOrderById(id, language);
 	}
 
 	@PostMapping
@@ -42,13 +44,13 @@ public class OrderController {
 	}
 
 	@PutMapping("/{id}/status")
-	public Orders updateOrderStatus(@PathVariable long id, @RequestBody Orders order) {
-		return orderService.updateOrderStatus(id, order);
+	public OrderDTO updateOrderStatus(@PathVariable long id, @RequestBody Orders order, @RequestHeader(value = "Accept-Language", defaultValue = "en") String language) {
+	    return orderService.updateOrderStatus(id, order, language);
 	}
 
 	@PutMapping("/{id}/cancel")
-	public Orders cancelOrder(@PathVariable long id){
-		return orderService.cancelOrder(id);
+	public OrderDTO cancelOrder(@PathVariable long id, @RequestHeader(value = "Accept-Language", defaultValue = "en") String language) {
+	    return orderService.cancelOrder(id, language);
 	}
 	
 	@GetMapping("/{id}/items")

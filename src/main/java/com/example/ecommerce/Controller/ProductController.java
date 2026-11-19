@@ -11,11 +11,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.ecommerce.DTO.ProductDTO;
 import com.example.ecommerce.Entity.Product;
 import com.example.ecommerce.Service.CloudinaryService;
 import com.example.ecommerce.Service.ProductService;
@@ -36,13 +38,13 @@ public class ProductController {
 	}
 	
 	@GetMapping
-	public List<Product> getAllProducts() {
-	    return productService.getAllProducts();
+	public List<ProductDTO> getAllProducts(@RequestHeader(value = "Accept-Language", defaultValue = "en") String language) {
+	    return productService.getAllProducts(language);
 	}
 	
 	@GetMapping("/{id}")
-	public Product getById(@PathVariable long id){
-	    return productService.getById(id);
+	public ProductDTO getById(@PathVariable long id, @RequestHeader(value = "Accept-Language", defaultValue = "en") String language) {
+	    return productService.getById(id, language);
 	}
 	
 	@PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)

@@ -6,9 +6,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.ecommerce.DTO.CategoryDTO;
 import com.example.ecommerce.Entity.Category;
 import com.example.ecommerce.Service.CategoryService;
 
@@ -28,13 +30,13 @@ public class CategoryController {
 	}
 	
 	@GetMapping
-	public List<Category> getAllCategories(){
-		return categoryService.getAllCategories();
+	public List<CategoryDTO> getAllCategories(@RequestHeader(value = "Accept-Language", defaultValue = "en") String language) {
+	    return categoryService.getAllCategories(language);
 	}
 
 	@GetMapping("/{id}")
-	public Category getById(@PathVariable long id){
-		return categoryService.getById(id);
+	public CategoryDTO getById(@PathVariable long id, @RequestHeader(value = "Accept-Language", defaultValue = "en") String language) {
+	    return categoryService.getById(id, language);
 	}
 
 	@PostMapping

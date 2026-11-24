@@ -172,9 +172,14 @@ The application uses environment variables for sensitive configuration such as d
 
 ---
 
-## 📱 Next Step
+## 📱 iOS Application
 
-An **iOS application built with SwiftUI** will consume this REST API.
+The backend is integrated with a native iOS E-Commerce application built using SwiftUI.
+
+**iOS App Repository:**  
+[Shope Ease – iOS GitHub Repository](https://github.com/ror2000/Shope-Ease-iOS)
+
+The iOS application provides a shopping experience with product browsing, cart management, order creation, and order history.
 
 ---
 
